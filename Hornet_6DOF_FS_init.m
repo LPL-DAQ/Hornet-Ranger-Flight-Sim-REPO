@@ -10,7 +10,7 @@ Tmin = 0; % N, minimum EDF thrust
 tau = 0.2; % s, EDF spool-up time constant
 gimbal_max = deg2rad(6); % rads, maximum gimbal angle
 
-z_hat_body = [0;0;1];
+x_hat_body = [1;0;0];
 x0 = 0; % m, initial height
 y0 = 0; % m, starting position
 z0 = 0; % m, starting position
