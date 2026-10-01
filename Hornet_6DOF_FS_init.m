@@ -8,7 +8,7 @@ weight = m*g; % N
 Tmax = 400; % N, max EDF thrust
 Tmin = 0; % N, minimum EDF thrust
 tau = 0.2; % s, EDF spool-up time constant
-gimbal_max = deg2rad(6); % rads, maximum gimbal angle
+gimbal_max = deg2rad(8); % rads, maximum gimbal angle
 
 x_hat_body = [1;0;0];
 x0 = 0; % m, initial height
