@@ -69,3 +69,6 @@ PID_KP_yaw = 0.0;
 PID_KI_yaw = 0.0;
 PID_KD_yaw = 0.0;
 
+PID_KP_roll = 0.0;
+PID_KI_roll = 0.0;
+PID_KD_roll = 0.0;
