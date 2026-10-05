@@ -1,0 +1,7 @@
+{
+  "name": "ranger-viewer",
+  "private": true,
+  "scripts": {
+    "start": "node bridge.js"
+  }
+}
