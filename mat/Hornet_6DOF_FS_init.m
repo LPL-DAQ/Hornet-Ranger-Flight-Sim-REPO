@@ -8,8 +8,9 @@ weight = m*g; % N
 Tmax = 400; % N, max EDF thrust
 Tmin = 0; % N, minimum EDF thrust
 tau = 0.2; % s, EDF spool-up time constant
+gimbal_max = deg2rad(8); % rads, maximum gimbal angle
 
-z_hat_body = [0;0;1];
+x_hat_body = [1;0;0];
 x0 = 0; % m, initial height
 y0 = 0; % m, starting position
 z0 = 0; % m, starting position
@@ -21,9 +22,11 @@ vz0 = 0; % m/s, initial velocity
 Kp = 10; % N/m, altitude gain
 Kd = 10; % N/(m/s), velocity (damping) gain
 
-z_targ = 0; % m, desired altitude
-y_targ = 0; % m, desired y-position
-x_targ = 0; % m, desired x-position
+% JACK: x appears to be up (TODO fix naming inconsistency?)
+x_targ = 15; % m, desired altitude
+y_targ = 10;  % m, desired horizontal position
+z_targ = 0;  % m, desired horizontal position
+
 
 Position_Target_inertial = [x_targ; y_targ;z_targ]; % m
 
@@ -46,16 +49,28 @@ PIDX_KP_pos = 0.0;
 PIDX_KI_pos = 0.0;
 PIDX_KD_pos = 0.0;
 
-PIDY_KP_pos = 0.0;
+PIDY_KP_pos = 0.2; % jack: these are untuned, wip (i think there is a sign convention somehere too).
 PIDY_KI_pos = 0.0;
-PIDY_KD_pos = 0.0;
+PIDY_KD_pos = 0.6;
 
-PIDZ_KP_pos = 0.0;
+PIDZ_KP_pos = 0.4;
 PIDZ_KI_pos = 0.0;
-PIDZ_KD_pos = 0.0;
+PIDZ_KD_pos = 0.05;
 
-% 
-PIDZ_KP_pos = 0.0;
-PIDZ_KI_pos = 0.0;
-PIDZ_KD_pos = 0.0;
+% Velocity Gains
+PIDZ_KP_vel = 1.0;
+PIDZ_KI_vel = 0.0;
+PIDZ_KD_vel = 0.0;
 
+% Attitude Gains
+PID_KP_pitch = 4.0;
+PID_KI_pitch = 0.0;
+PID_KD_pitch = 4.0;
+
+PID_KP_yaw = 4.0;
+PID_KI_yaw = 0.0;
+PID_KD_yaw = 4.0;
+
+PID_KP_roll = 0.0;
+PID_KI_roll = 0.0;
+PID_KD_roll = 0.0;
