@@ -32,6 +32,8 @@ I = [1 0 0
     0 1 0
     0 0 1]; % Moment of Inertia
 
+%% Actuators
+
 L_EDF = 1; % m, EDF standoff from CG
 
 F_g_I = [-weight;0;0]; % N, gravitational force in inertial frame
@@ -39,6 +41,20 @@ F_g_I = [-weight;0;0]; % N, gravitational force in inertial frame
 EDF_thrust = 100; % N, EDF thrust command
 
 L_RCS = 0.01; % m, RCS CG standoff dist
+
+%% Sensors
+
+X_b_lidar1_hornet = [-0.1,0.1,0.1]; % [m,m,m], Position of lidar 1 in body frame
+X_b_lidar2_hornet = [-0.1,-0.1,0.1]; % [m,m,m], Position of lidar 2 in body frame
+
+lidar1_pointing_b  = X_b_lidar1_hornet/(norm(X_b_lidar1_hornet)); 
+lidar2_pointing_b  = X_b_lidar2_hornet/(norm(X_b_lidar2_hornet)); 
+
+lidar_max_range = 100; % m, maximum lidar range
+lidar_standard_dev = 0.05; % m, standard deviation of lidar data
+
+GNSS_sample_rate = 10; % Hz, sample rate of the GNSS
+Lidar_sample_rate = 100000; % Hz, sample rate of Lidar
 
 %% PID Gains
 
@@ -72,3 +88,5 @@ PID_KD_yaw = 0.0;
 PID_KP_roll = 0.0;
 PID_KI_roll = 0.0;
 PID_KD_roll = 0.0;
+
+fprintf("Initialized!")

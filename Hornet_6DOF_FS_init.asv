@@ -8,8 +8,9 @@ weight = m*g; % N
 Tmax = 400; % N, max EDF thrust
 Tmin = 0; % N, minimum EDF thrust
 tau = 0.2; % s, EDF spool-up time constant
+gimbal_max = deg2rad(8); % rads, maximum gimbal angle
 
-z_hat_body = [0;0;1];
+x_hat_body = [1;0;0];
 x0 = 0; % m, initial height
 y0 = 0; % m, starting position
 z0 = 0; % m, starting position
@@ -39,6 +40,15 @@ EDF_thrust = 100; % N, EDF thrust command
 
 L_RCS = 0.01; % m, RCS CG standoff dist
 
+X_b_lidar1_hornet = [-0.1,0.1,0.1]; % [m,m,m], Position of lidar 1 in body frame
+X_b_lidar2_hornet = [-0.1,-0.1,0.1]; % [m,m,m], Position of lidar 2 in body frame
+
+lidar1_pointing_b  = X_b_lidar1_hornet/(norm(X_b_lidar1_hornet)); 
+lidar2_pointing_b  = X_b_lidar2_hornet/(norm(X_b_lidar2_hornet)); 
+
+lidar_max_range = 100; % m, maximum lidar range
+lidar_standard_dev = 0.05 
+
 %% PID Gains
 
 % Inertial Position Gains
@@ -54,8 +64,22 @@ PIDZ_KP_pos = 0.0;
 PIDZ_KI_pos = 0.0;
 PIDZ_KD_pos = 0.0;
 
-% 
-PIDZ_KP_pos = 0.0;
-PIDZ_KI_pos = 0.0;
-PIDZ_KD_pos = 0.0;
+% Velocity Gains
+PIDZ_KP_vel = 0.0;
+PIDZ_KI_vel = 0.0;
+PIDZ_KD_vel = 0.0;
 
+% Attitude Gains
+PID_KP_pitch = 0.0;
+PID_KI_pitch = 0.0;
+PID_KD_pitch = 0.0;
+
+PID_KP_yaw = 0.0;
+PID_KI_yaw = 0.0;
+PID_KD_yaw = 0.0;
+
+PID_KP_roll = 0.0;
+PID_KI_roll = 0.0;
+PID_KD_roll = 0.0;
+
+fprintf("Initialized!")
