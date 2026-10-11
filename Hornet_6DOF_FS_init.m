@@ -52,9 +52,17 @@ lidar2_pointing_b  = X_b_lidar2_hornet/(norm(X_b_lidar2_hornet));
 
 lidar_max_range = 100; % m, maximum lidar range
 lidar_standard_dev = 0.05; % m, standard deviation of lidar data
+accel_bias_standard_dev = 0.0001; % m/s^2, standard dev of accelerometer bias
+accel_noise_standard_dev = 0.01; % m/s^2, standard dev of accelerometer noise
+gyro_bias_standard_dev = 0.00005; % rad/s, standard dev of accelerometer bias
+gyro_noise_standard_dev = 0.002; % rad/s, standard dev of accelerometer noise
+
+r_IMU_b = [0,0,0];% m, body frame position of IMU from CG (assuming it's at the CG) 
+IMU_alpha_ratio = 0.98; % ratio for complementary filter of IMU (how much do you trust gyro/accel reading?) 
 
 GNSS_sample_rate = 10; % Hz, sample rate of the GNSS
 Lidar_sample_rate = 100000; % Hz, sample rate of Lidar
+IMU_sample_rate = 100000; % Hz, sample rate of accelerometer
 
 %% PID Gains
 
