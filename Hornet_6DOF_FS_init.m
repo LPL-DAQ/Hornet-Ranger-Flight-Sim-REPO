@@ -44,28 +44,33 @@ L_RCS = 0.01; % m, RCS CG standoff dist
 
 %% Sensors
 
-X_b_lidar1_hornet = [-0.1,0.1,0.1]; % [m,m,m], Position of lidar 1 in body frame
-X_b_lidar2_hornet = [-0.1,-0.1,0.1]; % [m,m,m], Position of lidar 2 in body frame
+% Lidar Structs (Benewake TF-02 Pro)
+Lidar_1.Xb = [-0.1,0.1,0.1]; % [m,m,m], Position of lidar 1 in body frame
+Lidar_2.Xb = [-0.1,-0.1,0.1]; % [m,m,m], Position of lidar 2 in body frame
+Lidar_1.pointing_b = Lidar_1.Xb/(norm(Lidar_1.Xb)); % unit vector in body frame
+Lidar_2.pointing_b = Lidar_2.Xb/(norm(Lidar_2.Xb)); % unit vector in body frame
+Lidar_1.max_range = 40; % m, maximum lidar range
+Lidar_2.max_range = 40; % m, maximum lidar range
+Lidar_1.sigma = 0.02; % m, standard deviation of lidar data (for 0.1 to 34 m)
+Lidar_2.sigma = 0.02; % m, standard deviation of lidar data
+Lidar_1.sample_rate = 100; % Hz, sample rate of Lidar (default)
+Lidar_2.sample_rate = 100; % Hz, sample rate of Lidar
 
-lidar1_pointing_b  = X_b_lidar1_hornet/(norm(X_b_lidar1_hornet)); 
-lidar2_pointing_b  = X_b_lidar2_hornet/(norm(X_b_lidar2_hornet)); 
-
-lidar_max_range = 100; % m, maximum lidar range
-lidar_standard_dev = 0.05; % m, standard deviation of lidar data
-accel_bias_standard_dev = 0.0001; % m/s^2, standard dev of accelerometer bias
-accel_noise_standard_dev = 0.01; % m/s^2, standard dev of accelerometer noise
-gyro_bias_standard_dev = 0.00005; % rad/s, standard dev of accelerometer bias
-gyro_noise_standard_dev = 0.002; % rad/s, standard dev of accelerometer noise
-
-r_IMU_b = [0,0,0];% m, body frame position of IMU from CG (assuming it's at the CG) 
-IMU_alpha_ratio = 0.98; % ratio for complementary filter of IMU (how much do you trust gyro/accel reading?) 
-
-GNSS_sample_rate = 10; % Hz, sample rate of the GNSS
-Lidar_sample_rate = 100000; % Hz, sample rate of Lidar
-IMU_sample_rate = 100000; % Hz, sample rate of accelerometer
+% IMU/GNSS Struct (VectorNav VN-300)
+VN300Config.sigma_pos = [1;1;1.5];% RMS, steady-state standard deviation of position
+VN300Config.sigma_vel = 0.5;% m/s, steady-state standard deviation of velocity
+VN300Config.sigma_att = [deg2rad(0.03);deg2rad(0.03);deg2rad(0.2)];% rad, stead-state standard deviation of attitude
+VN300Config.nav_imu_sample_rate = 400;% Hz, VN300 Navigation and IMU data rates
+VN300Config.gnss_solution_rate = 5;% Hz, GNSS solution update rate
+VN300Config.latency = NaN; % s, Can't find Latency data
+VN300Config.tau_pos = 10; % s, time correlation constant for time-correlated error (have to tune it)
+VN300Config.tau_vel = 10; % s, time correlation constant for time-correlated error (have to tune it)
+VN300Config.tau_att = 10; % s, time correlation constant for time-correlated error (have to tune it)
+VN300Config.mounting_pos_b = [0,0,0];% [m,m,m], mounted position in body frame
+VN300Config.gnss_available = true; % Error grows is GNSS is off
+VN300Config.enable_correlated_errors = true; % Simplified model if false
 
 %% PID Gains
-
 % Inertial Position Gains
 PIDX_KP_pos = 0.0;
 PIDX_KI_pos = 0.0;
