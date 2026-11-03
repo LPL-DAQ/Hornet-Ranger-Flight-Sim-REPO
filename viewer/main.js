@@ -17,19 +17,18 @@ renderer.setSize(innerWidth, innerHeight);
 document.body.appendChild(renderer.domElement);
 
 controls.enableDamping = true;
-grid.position.y = -2;
+
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 3));
 scene.add(grid);
 
 // landing pad
-// TODO: pad and reference grid are at -2 y. should be origin. 
 const PAD_SIZE = 6; // m
 const pad = new THREE.Mesh(
   new THREE.PlaneGeometry(PAD_SIZE, PAD_SIZE).rotateX(-Math.PI / 2),
   new THREE.MeshBasicMaterial({ color: 0x555555, transparent: true, opacity: 0.5, side: THREE.DoubleSide, depthWrite: false })
 );
-pad.position.y = -2; 
+
 scene.add(pad);
 new THREE.TextureLoader().load('http://127.0.0.1:8080/pad.png', tex => {
   tex.colorSpace = THREE.SRGBColorSpace;

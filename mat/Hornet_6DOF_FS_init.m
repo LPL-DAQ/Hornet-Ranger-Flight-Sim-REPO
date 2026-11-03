@@ -10,10 +10,21 @@ Tmin = 0; % N, minimum EDF thrust
 tau = 0.2; % s, EDF spool-up time constant
 gimbal_max = deg2rad(8); % rads, maximum gimbal angle
 
+% position of vehicle foot pads in body frame  TODO: check with cad these
+% are guessed by jack
+feet_pos_body_m = [ -1.87  -1.87  -1.87  -1.87 ;
+                    1.0   0.0  -1.0   0.0 ;
+                    0.0   1.0   0.0  -1.0 ];
+
+
 x_hat_body = [1;0;0];
-x0 = 0; % m, initial height
+x0 = 5; % m, initial height
 y0 = 0; % m, starting position
 z0 = 0; % m, starting position
+
+roll0  = 0.0; % rad, initial roll
+pitch0 = 0.0; % rad, initial pitch
+yaw0   = 0.0; % rad, initial yaw
 
 vx0 = 0; % m/s, initial velocity
 vy0 = 0; % m/s, initial velocity
@@ -24,7 +35,7 @@ Kd = 10; % N/(m/s), velocity (damping) gain
 
 % JACK: x appears to be up (TODO fix naming inconsistency?)
 x_targ = 15; % m, desired altitude
-y_targ = 10;  % m, desired horizontal position
+y_targ = 0;  % m, desired horizontal position
 z_targ = 0;  % m, desired horizontal position
 
 
@@ -45,9 +56,9 @@ L_RCS = 0.01; % m, RCS CG standoff dist
 %% PID Gains
 
 % Inertial Position Gains
-PIDX_KP_pos = 0.0;
+PIDX_KP_pos = 0.2; % lateral z channel (mirrors Y gains)
 PIDX_KI_pos = 0.0;
-PIDX_KD_pos = 0.0;
+PIDX_KD_pos = 0.6;
 
 PIDY_KP_pos = 0.2; % jack: these are untuned, wip (i think there is a sign convention somehere too).
 PIDY_KI_pos = 0.0;
