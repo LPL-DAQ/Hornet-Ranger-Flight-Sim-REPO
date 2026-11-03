@@ -13,12 +13,12 @@ Open http://127.0.0.1:8080 in any browser.
 
 
 
-![](../art/cover.png)
+![](./art/cover.png)
 
 Hit run in Hornet simulink. 
 
-![alt text](../art/sim.png)
+![alt text](./art/sim.png)
 
 If sim runs too fast for your monkey brain, change the sim real-time factor in Simulink here:
 
-![alt text](../art/image.png)
+![alt text](./art/image.png)
