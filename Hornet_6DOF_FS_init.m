@@ -3,8 +3,8 @@ clear; clc; close all
 
 %%Constants
 g = 9.81; % m/s^2, gravitational acceleration
-m = 100; % kg, vehicle thrust
-weight = m*g; % N
+m = 235.3470; % kg, vehicle thrust
+weight = 2307.9661; % N
 Tmax = 400; % N, max EDF thrust
 Tmin = 0; % N, minimum EDF thrust
 tau = 0.2; % s, EDF spool-up time constant
@@ -28,9 +28,9 @@ x_targ = 0; % m, desired x-position
 
 Position_Target_inertial = [x_targ; y_targ;z_targ]; % m
 
-I = [1 0 0
-    0 1 0
-    0 0 1]; % Moment of Inertia
+I = [78.5560 0 0
+    0 75.8459 0
+    0 0 29.6073]; % Moment of Inertia
 
 %% Actuators
 
