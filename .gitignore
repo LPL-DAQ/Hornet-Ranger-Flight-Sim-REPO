@@ -1,0 +1,8 @@
+# Simulink build artifacts (regenerated on compile)
+slprj/
+*.slxc
+*.asv
+
+# viewer
+viewer/node_modules/
+viewer/package-lock.json

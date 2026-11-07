@@ -12,6 +12,10 @@ x0 = 0; % m, initial height
 y0 = 0; % m, starting position
 z0 = 0; % m, starting position
 
+roll0  = 0.0; % rad, initial roll
+pitch0 = 0.0; % rad, initial pitch
+yaw0   = 0.0; % rad, initial yaw
+
 vx0 = 0; % m/s, initial velocity
 vy0 = 0; % m/s, initial velocity
 vz0 = 0; % m/s, initial velocity
@@ -22,6 +26,12 @@ Kp = 10; % N/m, altitude gain
 Kd = 10; % N/(m/s), velocity (damping) gain
 
 x_hat_body = [1;0;0];
+
+% position of vehicle foot pads in body frame  TODO: check with cad these
+% are guessed by jack
+feet_pos_body_m = [ -1.87  -1.87  -1.87  -1.87 ;
+                    1.0   0.0  -1.0   0.0 ;
+                    0.0   1.0   0.0  -1.0 ];
 
 %% RANGER Geometry and Mass Properties
 % Mass properties
