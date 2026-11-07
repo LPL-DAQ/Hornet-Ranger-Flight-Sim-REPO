@@ -1,16 +1,13 @@
 % Hornet/Ranger Flight Simulator Initiation Script
 clear; clc; close all
 
-%%Constants
+%% Constants and Starting Conditions
 g = 9.81; % m/s^2, gravitational acceleration
-m = 235.3470; % kg, vehicle thrust
-weight = 2307.9661; % N
-Tmax = 400; % N, max EDF thrust
-Tmin = 0; % N, minimum EDF thrust
-tau = 0.2; % s, EDF spool-up time constant
-gimbal_max = deg2rad(8); % rads, maximum gimbal angle
 
-x_hat_body = [1;0;0];
+z_targ = 0; % m, desired altitude
+y_targ = 0; % m, desired y-position
+x_targ = 0; % m, desired x-position
+
 x0 = 0; % m, initial height
 y0 = 0; % m, starting position
 z0 = 0; % m, starting position
@@ -19,31 +16,51 @@ vx0 = 0; % m/s, initial velocity
 vy0 = 0; % m/s, initial velocity
 vz0 = 0; % m/s, initial velocity
 
+Position_Target_inertial = [x_targ; y_targ;z_targ]; % m
+
 Kp = 10; % N/m, altitude gain
 Kd = 10; % N/(m/s), velocity (damping) gain
 
-z_targ = 0; % m, desired altitude
-y_targ = 0; % m, desired y-position
-x_targ = 0; % m, desired x-position
+x_hat_body = [1;0;0];
 
-Position_Target_inertial = [x_targ; y_targ;z_targ]; % m
+%% RANGER Geometry and Mass Properties
+% Mass properties
+params_ranger.m = 250.7891; % kg, vehicle mass
+params_ranger.weight = 2459.4007; % N
+params_ranger.I = [126.9426 0 0
+    0 127.0886 0
+    0 0 22.8931]; % Moment of Inertia
+params_ranger.F_g_i = [-params_ranger.weight;0;0]; % N, gravitational force in inertial frame
+% Primary Engine
+params_ranger.Tmax = 400; % N, max engine thrust
+params_ranger.Tmin = 0; % N, minimum engine thrust
+params_ranger.spool = 0.2; % s, engine time constant
+params_ranger.gimbal_max = deg2rad(8); % rads, maximum gimbal angle
+params_ranger.L_engine = 1; % m, engine standoff from CG
+params_ranger.thrust = 100; % N, thrust command
+% RCS
+params_ranger.L_RCS = 0.01; % m, RCS CG standoff dist
 
-I = [78.5560 0 0
-    0 75.8459 0
-    0 0 29.6073]; % Moment of Inertia
 
-%% Actuators
-
-L_EDF = 1; % m, EDF standoff from CG
-
-F_g_I = [-weight;0;0]; % N, gravitational force in inertial frame
-
-EDF_thrust = 100; % N, EDF thrust command
-
-L_RCS = 0.01; % m, RCS CG standoff dist
+%% HORNET Geometry and Mass Properties
+% Mass properties
+params_hornet.mass = 100; % kg, vehicle mass
+params_hornet.weight = params_hornet.mass * g; % N
+params_hornet.I = [1 0 0
+    0 1 0
+    0 0 1]; % Moment of Inertia
+params_hornet.F_g_i = [-params_hornet.weight;0;0]; % N, gravitational force in inertial frame
+% Primary Engine
+params_hornet.Tmax = 400; % N, max EDF thrust
+params_hornet.Tmin = 0; % N, minimum EDF thrust
+params_hornet.spool = 0.2; % s, EDF spool-up time constant
+params_hornet.gimbal_max = deg2rad(8); % rads, maximum gimbal angle
+params_hornet.L_engine = 1; % m, EDF standoff from CG
+params_hornet.thrust = 100; % N, EDF thrust command
+% RCS
+params_hornet.L_RCS = 0.01; % m, RCS CG standoff dist
 
 %% Sensors
-
 % Lidar Structs (Benewake TF-02 Pro)
 Lidar_1.Xb = [-0.1,0.1,0.1]; % [m,m,m], Position of lidar 1 in body frame
 Lidar_2.Xb = [-0.1,-0.1,0.1]; % [m,m,m], Position of lidar 2 in body frame
@@ -103,3 +120,11 @@ PID_KI_roll = 0.0;
 PID_KD_roll = 0.0;
 
 fprintf("Initialized!")
+
+%% Choose Vehicle
+VEHICLE = 1;                       % 1 = Ranger, 2 = Hornet
+
+switch VEHICLE
+    case 1, veh = params_ranger();
+    case 2, veh = params_hornet();
+end
