@@ -54,8 +54,8 @@ params_ranger.L_RCS = 0.01; % m, RCS CG standoff dist
 
 %% HORNET Geometry and Mass Properties
 % Mass properties
-params_hornet.mass = 100; % kg, vehicle mass
-params_hornet.weight = params_hornet.mass * g; % N
+params_hornet.m = 100; % kg, vehicle mass
+params_hornet.weight = params_hornet.m * g; % N
 params_hornet.I = [1 0 0
     0 1 0
     0 0 1]; % Moment of Inertia
