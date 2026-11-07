@@ -15,7 +15,7 @@ Open http://127.0.0.1:8080 in any browser.
 
 ![](./art/cover.png)
 
-Hit run in `6DOF_FlightSim_Simulink.slx` (after running `6DOF_FS_config.m`).
+Hit run in `FlightSim_6DOF.slx` (after running `FS_6DOF_config.m`).
 
 ![alt text](./art/sim.png)
 
