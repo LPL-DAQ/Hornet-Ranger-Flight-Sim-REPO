@@ -3,6 +3,7 @@ A simple web-based tool to visualize the state of Ranger from Simulink.
 
 > Caution: This tool requires a locally installed matlab. Web-based versions won't work.
 
+![alt text](image.png)
 ### Usage
 ```
 npm start
@@ -11,14 +12,3 @@ npm start
 
 Open http://127.0.0.1:8080 in any browser.
 
-
-
-![](./art/cover.png)
-
-Hit run in `FlightSim_6DOF.slx` (after running `FS_6DOF_config.m`).
-
-![alt text](./art/sim.png)
-
-If sim runs too fast for your monkey brain, change the sim real-time factor in Simulink here:
-
-![alt text](./art/image.png)
