@@ -3,7 +3,7 @@ A simple web-based tool to visualize the state of Ranger from Simulink.
 
 > Caution: This tool requires a locally installed matlab. Web-based versions won't work.
 
-![alt text](image.png)
+![alt text](./art/image.png)
 ### Usage
 ```
 npm start
